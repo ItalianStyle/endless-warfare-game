@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#define TESTING
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -68,17 +69,20 @@ public class ControlCamera : MonoBehaviour
                 // then the camera is locked in higher or lower angle
                 ZoomIn();
         }
-
-        if(GameManager.instance.GetMouseControls() == true)
-        {
+#if TESTING
+        if(GameUI.instance.localMouseControls == true)
             //rotate the camera along the y axes
             transform.Rotate(0, Input.GetAxis("Mouse X"), 0, Space.Self);
-        }
-       
+#else
+        if (GameManager.instance.GetMouseControls() == true)
+            //rotate the camera along the y axes
+            transform.Rotate(0, Input.GetAxis("Mouse X"), 0, Space.Self);
+ 
+#endif
     }
-    #endregion
+#endregion
 
-    #region Custom Methods
+#region Custom Methods
     void CheckPosition()
     {
         //Get the camera Y axis position in the turret's local space
@@ -95,7 +99,7 @@ public class ControlCamera : MonoBehaviour
         else if (up && down)
             zoomMode = false;
     }
-    #region Zoom handlers
+#region Zoom handlers
     void ZoomIn()
     {
         currDistance = Mathf.Abs(Vector3.Distance(target.position, transform.position));
@@ -113,6 +117,6 @@ public class ControlCamera : MonoBehaviour
         else
             transform.Translate(-transform.forward * zoomSpeed * Time.deltaTime, Space.World);
     }
-    #endregion
-    #endregion
+#endregion
+#endregion
 }

@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿#define TESTING
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Tanks;
+
 
 public class Turret : Tank
 {
@@ -51,11 +53,16 @@ public class Turret : Tank
     {
         if (isPlayer is true)
         {
+            #if TESTING
+            if(GameUI.instance.localMouseControls == true && (left || right))
+                transform.Rotate(0, (Input.GetAxis("Mouse X") * mouseTurretRotation * Time.deltaTime), 0, Space.World);
+            #else
+
             if (GameManager.instance.GetMouseControls() == true && (left || right))
             {
-
                 transform.Rotate(0, (Input.GetAxis("Mouse X") * mouseTurretRotation * Time.deltaTime), 0, Space.World);
             }
+            #endif
             else
             {
                 if (left == true)
@@ -70,9 +77,9 @@ public class Turret : Tank
         }
     }
 
-    #endregion
+#endregion
 
-    #region Custom Methods
+#region Custom Methods
     //can we shoot a bullet?
     public bool CanShoot()
     {
@@ -115,6 +122,24 @@ public class Turret : Tank
 
     public void RotateTurret()
     {
+#if TESTING
+        if(GameUI.instance.localMouseControls == false)
+        {
+            // Use keys to rotate
+            if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.Comma))
+            {
+                RotateStop();
+                RotateLeft();
+            }
+            else if (Input.GetKey(KeyCode.X) || Input.GetKey(KeyCode.Period))
+            {
+                RotateStop();
+                RotateRight();
+            }
+            else
+                RotateStop();
+        }
+#else
         if (GameManager.instance.GetMouseControls() == false)
         {
             // Use keys to rotate
@@ -131,6 +156,7 @@ public class Turret : Tank
             else
                 RotateStop();
         }
+#endif
         else
         {
             //Follow the camera  
@@ -140,5 +166,5 @@ public class Turret : Tank
         
     }
 
-    #endregion
+#endregion
 }

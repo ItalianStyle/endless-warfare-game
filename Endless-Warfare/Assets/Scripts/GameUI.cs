@@ -46,7 +46,10 @@ public class GameUI : MonoBehaviour
 
     public void UpdateToggle()
     {
-        localMouseControls.isOn = GameManager.instance.GetMouseControls() == true;
+        if (GameManager.instance == null)
+            localMouseControls.isOn = false;
+        else
+            localMouseControls.isOn = GameManager.instance.GetMouseControls() == true;
     }
 
     public void OnResumeButton()

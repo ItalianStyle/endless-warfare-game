@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#define TESTING
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Tanks;
@@ -40,8 +41,18 @@ public class PlayerController : MonoBehaviour
         // get hull movements values
         m_MovementInputValue = Input.GetAxis("Vertical");
         m_TurnInputValue = Input.GetAxis("Horizontal");
-                
+
         //turret shots
+#if TESTING
+        if (GameUI.instance.localMouseControls == false)
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                if (turret.CanShoot())
+                    turret.Shoot();
+            }
+        }
+#else
         if (GameManager.instance.GetMouseControls() == false)
         {
             if (Input.GetKey(KeyCode.Space))
@@ -50,6 +61,7 @@ public class PlayerController : MonoBehaviour
                     turret.Shoot();
             }
         }
+#endif
         else if (Input.GetMouseButton(0) && GameManager.instance.paused == false)
         {
             if (turret.CanShoot())
@@ -68,5 +80,5 @@ public class PlayerController : MonoBehaviour
         turret.RotateTurret();
     }
 
-    #endregion
+#endregion
 }
