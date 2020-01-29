@@ -55,17 +55,10 @@ public class Turret : Tank
     {
         if (isPlayer is true)
         {
-            #if TESTING
-            if(GameUI.instance.localMouseControls == true && (left || right))
-                transform.Rotate(0, (Input.GetAxis("Mouse X") * mouseTurretRotation * Time.deltaTime), 0, Space.World);
-            #else
-
             if (GameManager.instance.GetMouseControls() == true && (left || right))
             {
-                inputMouse = Input.GetAxis("Mouse X");
-                
-            }
-            #endif
+                inputMouse = Input.GetAxis("Mouse X");   
+            }   
             else
             {
                 if (left == true)
