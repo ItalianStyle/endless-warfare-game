@@ -12,7 +12,7 @@ public class Turret : Tank
     public int currAmmo;
     public int maxAmmo;
     public bool infiniteAmmo;
-    public float mouseTurretRotation;
+    
     public float bulletSpeed;
 
     public float shootRate;
@@ -27,8 +27,9 @@ public class Turret : Tank
     public int damage;
     public float reloadSpeed;
     [Header("Movements")]
-    public float rotateSpeed;
-    [SerializeField] private Camera camera;
+    [Tooltip("Value used to compute rotation speed with keyboard controls")] public float rotateSpeed;
+    [Tooltip("Value used to compute rotation speed with mouse controls")] public float mouseTurretRotation;
+    private Camera camera;
 
     #endregion
 
