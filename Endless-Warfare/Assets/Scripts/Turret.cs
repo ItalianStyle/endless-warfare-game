@@ -1,4 +1,4 @@
-﻿#define TESTING
+﻿
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -60,7 +60,7 @@ public class Turret : Tank
 
             if (GameManager.instance.GetMouseControls() == true && (left || right))
             {
-                transform.Rotate(0, (Input.GetAxis("Mouse X") * mouseTurretRotation * Time.deltaTime), 0, Space.World);
+                transform.Rotate(new Vector3(0f, Input.GetAxis("Mouse X") * mouseTurretRotation * Time.deltaTime, 0f), Space.World);
             }
             #endif
             else
