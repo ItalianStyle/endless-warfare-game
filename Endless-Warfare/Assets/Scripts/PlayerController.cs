@@ -43,16 +43,6 @@ public class PlayerController : MonoBehaviour
         m_TurnInputValue = Input.GetAxis("Horizontal");
 
         //turret shots
-#if TESTING
-        if (GameUI.instance.localMouseControls == false)
-        {
-            if (Input.GetKey(KeyCode.Space))
-            {
-                if (turret.CanShoot())
-                    turret.Shoot();
-            }
-        }
-#else
         if (GameManager.instance.GetMouseControls() == false)
         {
             if (Input.GetKey(KeyCode.Space))
@@ -61,7 +51,6 @@ public class PlayerController : MonoBehaviour
                     turret.Shoot();
             }
         }
-#endif
         else if (Input.GetMouseButton(0) && GameManager.instance.paused == false)
         {
             if (turret.CanShoot())

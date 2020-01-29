@@ -126,24 +126,6 @@ public class Turret : Tank
 
     public void RotateTurret()
     {
-#if TESTING
-        if(GameUI.instance.localMouseControls == false)
-        {
-            // Use keys to rotate
-            if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.Comma))
-            {
-                RotateStop();
-                RotateLeft();
-            }
-            else if (Input.GetKey(KeyCode.X) || Input.GetKey(KeyCode.Period))
-            {
-                RotateStop();
-                RotateRight();
-            }
-            else
-                RotateStop();
-        }
-#else
         // Use keys to rotate
         if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.Comma))
         {
@@ -156,8 +138,7 @@ public class Turret : Tank
             RotateRight();
         }
         else
-            RotateStop();  
-#endif      
+            RotateStop();      
     }
     public void Rotate()
     {

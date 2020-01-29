@@ -69,16 +69,12 @@ public class ControlCamera : MonoBehaviour
                 // then the camera is locked in higher or lower angle
                 ZoomIn();
         }
-#if TESTING
-        if(GameUI.instance.localMouseControls == true)
-            //rotate the camera along the y axes
-            transform.Rotate(0, Input.GetAxis("Mouse X"), 0, Space.Self);
-#else
+
         if (GameManager.instance.GetMouseControls() == true)
             //rotate the camera along the y axes
             transform.Rotate(0, Input.GetAxis("Mouse X") * Time.deltaTime, 0, Space.Self);
  
-#endif
+
     }
 #endregion
 
