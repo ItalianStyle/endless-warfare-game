@@ -13,15 +13,22 @@ public class GameManager : MonoBehaviour
     {
         // if there is another istance and it's not us
         if (instance != null && instance != this)
-        {           
+        {
+            Debug.Log("Distruggo il gameObject");
             //destroy this instance 
             Destroy(gameObject);
         }
         else if(SceneManager.GetActiveScene().buildIndex == 0)
         {
+
             instance = this;
             // don't destroy the game manager (mainly to keep the mouseControls toggle) while changing the levels (aka scenes)
             DontDestroyOnLoad(gameObject);           
+        }
+        else
+        {
+            instance = this;
+            Debug.Log("Siamo nella scena TestTank, mantengo il GameManager");
         }
     }
 

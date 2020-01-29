@@ -75,9 +75,11 @@ public class PlayerController : MonoBehaviour
         //move the hull
         hull.Move(m_MovementInputValue);
         hull.Turn(m_TurnInputValue);
-        
-        //every fixed frame check: if the button to rotate turret is down, if so, keep call the rotateturret function, else stop it
-        turret.RotateTurret();
+        if (GameManager.instance.GetMouseControls() == false)
+            //every fixed frame check: if the button to rotate turret is down, if so, keep call the rotateturret function, else stop it
+            turret.RotateTurret();
+        else
+            turret.FollowCamera();
     }
 
 #endregion

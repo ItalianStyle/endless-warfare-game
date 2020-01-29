@@ -21,6 +21,7 @@ public class Turret : Tank
 
     private float lastShootTime;
     [SerializeField] private bool isPlayer;
+    [SerializeField] float inputMouse;
     private float yaw = 0.0f;
     private bool left = false;
     private bool right = false;
@@ -60,7 +61,8 @@ public class Turret : Tank
 
             if (GameManager.instance.GetMouseControls() == true && (left || right))
             {
-                transform.Rotate(new Vector3(0f, Input.GetAxis("Mouse X") * mouseTurretRotation * Time.deltaTime, 0f), Space.World);
+                inputMouse = Input.GetAxis("Mouse X");
+                
             }
             #endif
             else
@@ -140,31 +142,25 @@ public class Turret : Tank
                 RotateStop();
         }
 #else
-        if (GameManager.instance.GetMouseControls() == false)
+        // Use keys to rotate
+        if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.Comma))
         {
-            // Use keys to rotate
-            if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.Comma))
-            {
-                RotateStop();
-                RotateLeft();
-            }
-            else if (Input.GetKey(KeyCode.X) || Input.GetKey(KeyCode.Period))
-            {
-                RotateStop();
-                RotateRight();
-            }
-            else
-                RotateStop();
+            RotateStop();
+            RotateLeft();
         }
-#endif
+        else if (Input.GetKey(KeyCode.X) || Input.GetKey(KeyCode.Period))
+        {
+            RotateStop();
+            RotateRight();
+        }
         else
-        {
-            //Follow the camera  
-            transform.rotation = camera.transform.rotation;
-            
-        }
-        
+            RotateStop();  
+#endif      
     }
 
+    public void FollowCamera()
+    {
+
+    }
 #endregion
 }

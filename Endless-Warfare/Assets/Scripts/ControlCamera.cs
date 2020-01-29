@@ -76,7 +76,7 @@ public class ControlCamera : MonoBehaviour
 #else
         if (GameManager.instance.GetMouseControls() == true)
             //rotate the camera along the y axes
-            transform.Rotate(0, Input.GetAxis("Mouse X"), 0, Space.Self);
+            transform.Rotate(0, Input.GetAxis("Mouse X") * Time.deltaTime, 0, Space.Self);
  
 #endif
     }
