@@ -14,7 +14,7 @@ public class Turret : Tank
     public int currAmmo;
     public int maxAmmo;
     public bool infiniteAmmo;
-    
+
     public float bulletSpeed;
 
     public float shootRate;
@@ -31,7 +31,7 @@ public class Turret : Tank
     [Header("Movements")]
     [Tooltip("Value used to compute rotation speed with keyboard controls")] public float rotateSpeed;
     [Tooltip("Value used to compute rotation speed with mouse controls")] public float mouseTurretRotation;
-    private Camera camera;
+    [Tooltip("Make the camera child of the turret and put it here")] public Camera camera;
 
     #endregion
 
@@ -43,7 +43,7 @@ public class Turret : Tank
         if (GetComponentInParent<PlayerController>())
         {
             isPlayer = true;
-            camera = GetComponent<Camera>();
+            camera = GetComponentInChildren<Camera>();
         }
         
         rig = GetComponent<Rigidbody>();
