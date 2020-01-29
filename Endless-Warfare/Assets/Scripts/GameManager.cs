@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class GameManager : MonoBehaviour
             //destroy this instance 
             Destroy(gameObject);
         }
-        else
+        else if(SceneManager.GetActiveScene().buildIndex == 0)
         {
             instance = this;
             // don't destroy the game manager (mainly to keep the mouseControls toggle) while changing the levels (aka scenes)

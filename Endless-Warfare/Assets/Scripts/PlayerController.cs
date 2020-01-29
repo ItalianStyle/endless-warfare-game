@@ -7,8 +7,8 @@ public class PlayerController : MonoBehaviour
 {
     #region Variables
 
-    private Turret turret;
-    private Hull hull;
+    [SerializeField] private Turret turret;
+    [SerializeField] private Hull hull;
     private Rigidbody m_PlayerRigidbody;
     private float m_MovementInputValue;
     private float m_TurnInputValue;
