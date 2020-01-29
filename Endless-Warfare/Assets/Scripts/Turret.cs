@@ -25,6 +25,7 @@ public class Turret : Tank
     private float yaw = 0.0f;
     private bool left = false;
     private bool right = false;
+    [SerializeField] bool canRotate;
     private Rigidbody rig;
     [Header("DPS charateristics")]
     public int damage;
@@ -120,6 +121,7 @@ public class Turret : Tank
     {
         left = false;
         right = false;
+        canRotate = false;
     }
 
     public void RotateTurret()
@@ -157,10 +159,28 @@ public class Turret : Tank
             RotateStop();  
 #endif      
     }
-
+    public void Rotate()
+    {
+        canRotate = true;
+    }
     public void FollowCamera()
     {
+        //look for mouse direction
 
+        //rotate the turret according to that direction
+
+        Vector3 cameraDirection = camera.transform.forward;
+        Vector3 turretDirection = transform.forward;
+        if (Input.GetAxis("Mouse X") != 0 && canRotate)
+        {
+
+            camera.transform.RotateAround(transform.position, Vector3.up, Input.GetAxis("Mouse X") * Time.deltaTime);// * Time.deltaTime * rotateSpeed * Input.GetAxis("Mouse X"));
+            transform.Rotate(new Vector3(0, Vector3.Angle(turretDirection, cameraDirection), 0), Space.Self);
+            if (turretDirection == camera.transform.forward)
+                RotateStop();
+        }
+        else
+            RotateStop();
     }
 #endregion
 }
