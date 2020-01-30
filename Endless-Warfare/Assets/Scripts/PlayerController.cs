@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
             hull.Move(m_MovementInputValue);
             hull.Turn(m_TurnInputValue);
 
-            //move the turret
+            //how to move the turret
             if (controlMode == false)
             {
                 // stop any eventual rotation
@@ -96,8 +96,8 @@ public class PlayerController : MonoBehaviour
                     turret.transform.Rotate(Vector3.up, turret.rotateSpeed * Time.deltaTime);
                 }
             }
-            else
-                turret.FollowCamera();
+            
+               
         }    
     }
 
