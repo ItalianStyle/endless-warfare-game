@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Turret turret;
     [SerializeField] private Hull hull;
+
     private Rigidbody m_PlayerRigidbody;
     private float m_MovementInputValue;
     private float m_TurnInputValue;
@@ -64,9 +65,25 @@ public class PlayerController : MonoBehaviour
         //move the hull
         hull.Move(m_MovementInputValue);
         hull.Turn(m_TurnInputValue);
+
+        //move the turret
         if (GameManager.instance.GetMouseControls() == false)
+        {
             //every fixed frame check: if the button to rotate turret is down, if so, keep call the rotateturret function, else stop it
-            turret.RotateTurret();
+            if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.Comma))
+            {
+                
+                transform.Rotate(Vector3.up, 0f);
+                transform.Rotate(Vector3.up, -turret.rotateSpeed * Time.deltaTime);
+            }
+            else if (Input.GetKey(KeyCode.X) || Input.GetKey(KeyCode.Period))
+            {
+                transform.Rotate(Vector3.up, 0f);
+                transform.Rotate(Vector3.up, turret.rotateSpeed * Time.deltaTime);
+            }
+            else
+                transform.Rotate(Vector3.up, 0f);
+        }
         else
             turret.FollowCamera();
     }

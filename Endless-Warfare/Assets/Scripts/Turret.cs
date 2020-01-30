@@ -55,7 +55,7 @@ public class Turret : Tank
     {
         if (isPlayer is true)
         {
-            if (GameManager.instance.GetMouseControls() == true && (left || right))
+            /*if (GameManager.instance.GetMouseControls() == true && (left || right))
             {
                 inputMouse = Input.GetAxis("Mouse X");   
             }   
@@ -69,7 +69,7 @@ public class Turret : Tank
 
                 else
                     transform.Rotate(Vector3.up, 0f);
-            }
+            }*/
         }
     }
 
