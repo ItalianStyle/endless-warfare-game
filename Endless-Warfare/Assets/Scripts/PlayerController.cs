@@ -37,7 +37,6 @@ public class PlayerController : MonoBehaviour
         m_MovementInputValue = 0f;
         m_TurnInputValue = 0f;
         controlMode = GameManager.instance.GetMouseControls();
-
     }
 
     private void Update()
@@ -84,17 +83,17 @@ public class PlayerController : MonoBehaviour
             if (controlMode == false)
             {
                 // stop any eventual rotation
-                transform.Rotate(Vector3.up, 0f);
+                turret.transform.Rotate(Vector3.up, 0f);
 
                 // every fixed frame check if the button to rotate turret is down, if so, keep call the RotateTurret() 
                 if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.Comma))
                 {
-                    transform.Rotate(Vector3.up, -turret.rotateSpeed * Time.deltaTime);
+                    turret.transform.Rotate(Vector3.up, -turret.rotateSpeed * Time.deltaTime);
                 }
                 else if (Input.GetKey(KeyCode.X) || Input.GetKey(KeyCode.Period))
                 {
 
-                    transform.Rotate(Vector3.up, turret.rotateSpeed * Time.deltaTime);
+                    turret.transform.Rotate(Vector3.up, turret.rotateSpeed * Time.deltaTime);
                 }
             }
         }
