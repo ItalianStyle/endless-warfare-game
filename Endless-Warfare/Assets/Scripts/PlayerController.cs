@@ -96,10 +96,9 @@ public class PlayerController : MonoBehaviour
                     turret.transform.Rotate(Vector3.up, turret.rotateSpeed * Time.deltaTime);
                 }
             }
-        }
-        else
-            turret.FollowCamera();
-        
+            else
+                turret.FollowCamera();
+        }    
     }
 
 #endregion
