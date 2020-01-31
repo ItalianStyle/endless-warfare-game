@@ -15,7 +15,8 @@ public class ControlCamera : MonoBehaviour
     public float maxAngle = 11; //These are arbitrary values, you can set them according to preference
     public float zoomSpeed = 10.0f;
     public float rotationSpeed = 45.0f;//a speed modifier
-
+    public Vector3 currentRotation;
+    public float currentAngle;
     [Header("Zoom parameters")]
     public float maxRadius;
     public float minRadius;
@@ -25,6 +26,8 @@ public class ControlCamera : MonoBehaviour
     [Header("Booleans")]
     [SerializeField] private bool up = false;  //can the camera go up?
     [SerializeField] private bool down = false;  //can the camera go down?
+    [SerializeField] private bool zoomUp = false;
+    [SerializeField] private bool zoomDown = false;
     [SerializeField] private bool zoomMode = false;  //is the camera in zoomMode?;
 
     private Vector3 point;//the coord to the point where the camera looks at
@@ -46,13 +49,13 @@ public class ControlCamera : MonoBehaviour
     void SetCamera()
     {
         //set initial position
-        transform.position = initialPosition;
+        transform.localPosition = initialPosition;
         //get target's coords
         point = target.position;
         //makes the camera look to it 
         transform.LookAt(point);     
     }
-    void FixedUpdate()
+    void Update()
     {
         //makes the camera rotate around "point" coords, rotating around its X axis, 20 degrees per second times the speed modifier
 
@@ -60,46 +63,59 @@ public class ControlCamera : MonoBehaviour
         CheckPosition();
         if (Input.GetKey(KeyCode.E))
         {
-            // if camera can rotate up and it's not in zoomMode
-            if (up is true && zoomMode is false)
+            // if camera's not in zoomMode and can rotate up
+            if (zoomMode is false)
                 //then the camera have free rotation
                 transform.RotateAround(target.transform.position, target.right, rotationSpeed * Time.deltaTime);
 
             // else if the camera is in zoom mode
             else if (zoomMode is true)
+            {
                 // then the camera is locked in higher or lower angle
-                ZoomOut();
+                ZoomOut();              
+            }
         }
 
         else if (Input.GetKey(KeyCode.Q))
         {
-            //if camera can rotate down and it's not in zoomMode
-            if (down is true && zoomMode is false)
-                //then the camera have free rotation
+            
+            //if camera's not in zoomMode and can rotate down
+            if (zoomMode is false)
+                //then the camera have free vertical rotation
                 transform.RotateAround(target.transform.position, target.right, -rotationSpeed * Time.deltaTime);
 
             //else if the camera is in zoomMode
-            else if (zoomMode is true)
+            else
+            {
                 // then the camera is locked in higher or lower angle
                 ZoomIn();
+            }
+
         }
 
-        if (GameManager.instance.GetMouseControls() == true)
+        /*if (GameManager.instance.GetMouseControls() == true)
             //rotate the camera along the y axes
-            transform.Rotate(0, Input.GetAxis("Mouse X") * Time.deltaTime, 0, Space.Self);
- 
-
+            transform.RotateAround(target.position, Vector3.up, Input.GetAxis("Mouse X") * Time.deltaTime);*/
     }
+
     #endregion
 
     #region Custom Methods
     void CheckPosition()
     {
         //Get current rotation
-        Vector3 currentRotation = transform.eulerAngles;
-
+        currentRotation = transform.eulerAngles;
+        currentAngle = transform.eulerAngles.x;
         // if the current rotation is over the limits, activate zoomMode
-        zoomMode = (minAngle > currentRotation.x || currentRotation.x > maxAngle) ? true : false;
+        down = (currentAngle >= minAngle) ? true : false;
+        up = (currentAngle <= maxAngle) ? true : false;
+
+        //if up or down are deactivated, activate zoomMode
+        if (up is false || down is false)
+            zoomMode = true;
+        //else if the camera can move up and down, deactivate zoomMode
+        else if (up && down)
+            zoomMode = false;
     }
 
 #region Zoom handlers
@@ -107,7 +123,9 @@ public class ControlCamera : MonoBehaviour
     {
         currDistance = Mathf.Abs(Vector3.Distance(target.position, transform.position));
         if (currDistance <= minRadius)
+        {
             return;
+        }
         else
             transform.Translate(transform.forward * zoomSpeed * Time.deltaTime, Space.World);
     }
@@ -115,7 +133,7 @@ public class ControlCamera : MonoBehaviour
     void ZoomOut()
     {
         currDistance = Mathf.Abs(Vector3.Distance(target.position, transform.position));
-        if (currDistance >= maxRadius)
+        if (currDistance >= maxRadius )
             return;
         else
             transform.Translate(-transform.forward * zoomSpeed * Time.deltaTime, Space.World);

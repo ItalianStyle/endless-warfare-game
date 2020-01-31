@@ -951,7 +951,32 @@ PrefabInstance:
     - target: {fileID: 3921771007813841924, guid: a998d223ade96df48881bdfde79dcbf3,
         type: 3}
       propertyPath: maxY
-      value: 20
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921771007813841924, guid: a998d223ade96df48881bdfde79dcbf3,
+        type: 3}
+      propertyPath: minRadius
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921771007813841924, guid: a998d223ade96df48881bdfde79dcbf3,
+        type: 3}
+      propertyPath: maxRadius
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921771007813841924, guid: a998d223ade96df48881bdfde79dcbf3,
+        type: 3}
+      propertyPath: minAngle
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921771007813841924, guid: a998d223ade96df48881bdfde79dcbf3,
+        type: 3}
+      propertyPath: maxAngle
+      value: 85
+      objectReference: {fileID: 0}
+    - target: {fileID: 3921771007813841924, guid: a998d223ade96df48881bdfde79dcbf3,
+        type: 3}
+      propertyPath: zoomSpeed
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4931415187833489203, guid: a998d223ade96df48881bdfde79dcbf3,
         type: 3}
@@ -2225,7 +2250,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-163692
+  m_Name: pb_Mesh-181168
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3105,7 +3130,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-163664
+  m_Name: pb_Mesh-181140
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3588,7 +3613,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-163676
+  m_Name: pb_Mesh-181152
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3847,6 +3872,26 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &2041820791 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8592798503378943742, guid: a998d223ade96df48881bdfde79dcbf3,
+    type: 3}
+  m_PrefabInstance: {fileID: 448642651}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2041820795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2041820791}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef479fe295d38fc42bb1ccce5183f04a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 0.5
+  isInstant: 0
 --- !u!1 &2049685376
 GameObject:
   m_ObjectHideFlags: 0
