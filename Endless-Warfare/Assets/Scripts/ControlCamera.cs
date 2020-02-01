@@ -92,9 +92,6 @@ public class ControlCamera : MonoBehaviour
 
         }
 
-        /*if (GameManager.instance.GetMouseControls() == true)
-            //rotate the camera along the y axes
-            transform.RotateAround(target.position, Vector3.up, Input.GetAxis("Mouse X") * Time.deltaTime);*/
     }
 
     #endregion
