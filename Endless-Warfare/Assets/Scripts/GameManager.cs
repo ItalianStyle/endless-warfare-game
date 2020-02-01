@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
         else
         {
             instance = this;
-            Debug.Log("Siamo nella scena TestTank, mantengo il GameManager");
+            //Debug.Log("Siamo nella scena TestTank, mantengo il GameManager");
         }
     }
 
