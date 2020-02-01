@@ -26,9 +26,8 @@ public class ControlCamera : MonoBehaviour
     [Header("Booleans")]
     [SerializeField] private bool up = false;  //can the camera go up?
     [SerializeField] private bool down = false;  //can the camera go down?
-    [SerializeField] private bool zoomUp = false;
-    [SerializeField] private bool zoomDown = false;
-    [SerializeField] private bool zoomMode = false;  //is the camera in zoomMode?;
+    [SerializeField] private bool zoomMode = false;  //is the camera in zoomMode?
+    [SerializeField] bool leaveZoomMode = false; // a flag for leaving zoomMode
 
     private Vector3 point;//the coord to the point where the camera looks at
     #endregion
@@ -61,6 +60,7 @@ public class ControlCamera : MonoBehaviour
 
         //checks the capabilities of the camera
         CheckPosition();
+
         if (Input.GetKey(KeyCode.E))
         {
             // if camera's not in zoomMode and can rotate up
@@ -69,7 +69,7 @@ public class ControlCamera : MonoBehaviour
                 transform.RotateAround(target.transform.position, target.right, rotationSpeed * Time.deltaTime);
 
             // else if the camera is in zoom mode
-            else if (zoomMode is true)
+            else
             {
                 // then the camera is locked in higher or lower angle
                 ZoomOut();              
@@ -78,7 +78,6 @@ public class ControlCamera : MonoBehaviour
 
         else if (Input.GetKey(KeyCode.Q))
         {
-            
             //if camera's not in zoomMode and can rotate down
             if (zoomMode is false)
                 //then the camera have free vertical rotation
@@ -112,10 +111,15 @@ public class ControlCamera : MonoBehaviour
 
         //if up or down are deactivated, activate zoomMode
         if (up is false || down is false)
-            zoomMode = true;
+        {
+            zoomMode = (leaveZoomMode is true) ? false : true;
+        }
         //else if the camera can move up and down, deactivate zoomMode
-        else if (up && down)
+        else if ((up && down))
+        {
             zoomMode = false;
+            leaveZoomMode = false;
+        }
     }
 
 #region Zoom handlers
@@ -123,7 +127,10 @@ public class ControlCamera : MonoBehaviour
     {
         currDistance = Mathf.Abs(Vector3.Distance(target.position, transform.position));
         if (currDistance <= minRadius)
+            return;
+        else if(up is false && currDistance <= radius)
         {
+            leaveZoomMode = true;
             return;
         }
         else
@@ -133,8 +140,13 @@ public class ControlCamera : MonoBehaviour
     void ZoomOut()
     {
         currDistance = Mathf.Abs(Vector3.Distance(target.position, transform.position));
-        if (currDistance >= maxRadius )
+        if (currDistance >= maxRadius)
             return;
+        else if(down is false && currDistance > radius)
+        {
+            leaveZoomMode = true;
+            return;
+        }
         else
             transform.Translate(-transform.forward * zoomSpeed * Time.deltaTime, Space.World);
     }
