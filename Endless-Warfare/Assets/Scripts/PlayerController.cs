@@ -82,19 +82,7 @@ public class PlayerController : MonoBehaviour
             //how to move the turret
             if (controlMode == false)
             {
-                // stop any eventual rotation
-                turret.transform.Rotate(Vector3.up, 0f);
-
-                // every fixed frame check if the button to rotate turret is down, if so, keep call the RotateTurret() 
-                if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.Comma))
-                {
-                    turret.transform.Rotate(Vector3.up, -turret.rotateSpeed * Time.deltaTime);
-                }
-                else if (Input.GetKey(KeyCode.X) || Input.GetKey(KeyCode.Period))
-                {
-
-                    turret.transform.Rotate(Vector3.up, turret.rotateSpeed * Time.deltaTime);
-                }
+                turret.RotateTurret();
             }
             
                

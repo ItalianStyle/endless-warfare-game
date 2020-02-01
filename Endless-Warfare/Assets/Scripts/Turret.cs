@@ -23,9 +23,9 @@ public class Turret : Tank
     [SerializeField] private bool isPlayer;
     [SerializeField] float inputMouse;
     private float yaw = 0.0f;
-    private bool left = false;
-    private bool right = false;
-    [SerializeField] bool canRotate;
+    [SerializeField] private bool left = false;
+    [SerializeField] private bool right = false;
+    
     private Rigidbody rig;
     [Header("DPS charateristics")]
     public int damage;
@@ -55,10 +55,10 @@ public class Turret : Tank
     {
         if (isPlayer is true)
         {
-            /*if (GameManager.instance.GetMouseControls() == true && (left || right))
+            if (GameManager.instance.GetMouseControls() == true && (left || right))
             {
-                inputMouse = Input.GetAxis("Mouse X");   
-            }   
+                inputMouse = Input.GetAxis("Mouse X");
+            }
             else
             {
                 if (left == true)
@@ -69,13 +69,14 @@ public class Turret : Tank
 
                 else
                     transform.Rotate(Vector3.up, 0f);
-            }*/
+            }
         }
     }
 
-#endregion
 
-#region Custom Methods
+    #endregion
+
+    #region Custom Methods
     //can we shoot a bullet?
     public bool CanShoot()
     {
@@ -114,7 +115,6 @@ public class Turret : Tank
     {
         left = false;
         right = false;
-        canRotate = false;
     }
 
     public void RotateTurret()
@@ -133,10 +133,7 @@ public class Turret : Tank
         else
             RotateStop();      
     }
-    public void Rotate()
-    {
-        canRotate = true;
-    }
+
     public void FollowCamera()
     {
         //look for mouse direction

@@ -29,12 +29,14 @@ public class ControlCamera : MonoBehaviour
     [SerializeField] private bool zoomMode = false;  //is the camera in zoomMode?
     [SerializeField] private bool leaveZoomMode = false; // a flag for leaving zoomMode
 
-    private Vector3 point;//the coord to the point where the camera looks at
+    private Camera _camera;
+
     #endregion
 
     #region Built-in Methods
     void Start()
     {
+        _camera = Camera.main;
         //Set up things on the start method
         SetCamera();
 
@@ -49,10 +51,9 @@ public class ControlCamera : MonoBehaviour
     {
         //set initial position
         transform.localPosition = initialPosition;
-        //get target's coords
-        point = target.position;
-        //makes the camera look to it 
-        transform.LookAt(point);     
+    
+        //makes the camera look to target's coords
+        transform.LookAt(target.position);     
     }
     void Update()
     {
@@ -91,7 +92,24 @@ public class ControlCamera : MonoBehaviour
             }
 
         }
+        
+        if(GameManager.instance.GetMouseControls() is true)
+        {
+            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+            // Copy the ray's direction
+            Vector3 mouseDirection = ray.direction;
+            // Constraint it to stay in the X/Z plane
+            mouseDirection.y = 0;
+            //Look for the constraint direction
+            Quaternion targetRotation = Quaternion.LookRotation(mouseDirection);
+            Quaternion currentRotation = transform.rotation;
+            float angularDifference = Quaternion.Angle(currentRotation, targetRotation);
+            transform.RotateAround(target.transform.position, target.up, rotationSpeed * Time.deltaTime);
+            
 
+            
+            // wi
+        }
     }
 
     #endregion
