@@ -27,7 +27,7 @@ public class ControlCamera : MonoBehaviour
     [SerializeField] private bool up = false;  //can the camera go up?
     [SerializeField] private bool down = false;  //can the camera go down?
     [SerializeField] private bool zoomMode = false;  //is the camera in zoomMode?
-    [SerializeField] bool leaveZoomMode = false; // a flag for leaving zoomMode
+    [SerializeField] private bool leaveZoomMode = false; // a flag for leaving zoomMode
 
     private Vector3 point;//the coord to the point where the camera looks at
     #endregion
@@ -39,7 +39,7 @@ public class ControlCamera : MonoBehaviour
         SetCamera();
 
         //take the radius
-        radius = Mathf.Abs(Vector3.Distance(target.position, transform.position));
+        radius = Vector3.Distance(target.position, transform.position);
 
         //Check the camera position
         CheckPosition();
