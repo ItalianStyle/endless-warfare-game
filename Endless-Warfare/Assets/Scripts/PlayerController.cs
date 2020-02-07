@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
             m_MovementInputValue = Input.GetAxis("Vertical");
             m_TurnInputValue = Input.GetAxis("Horizontal");
 
+
             //get turret shots
             if (controlMode == true)
             {
@@ -92,12 +93,17 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (Input.GetKey(KeyCode.X) || Input.GetKey(KeyCode.Period))
                 {
-
                     turret.transform.Rotate(Vector3.up, turret.rotateSpeed * Time.deltaTime);
                 }
             }
-            
-               
+
+            if (Input.GetKey(KeyCode.C))
+            {
+                float angleToRotate = Quaternion.Angle(hull.transform.rotation, turret.transform.rotation);
+                turret.CenterTurret(angleToRotate);
+            }
+
+
         }    
     }
 

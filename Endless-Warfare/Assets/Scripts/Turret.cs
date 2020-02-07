@@ -133,9 +133,15 @@ public class Turret : Tank
         else
             RotateStop();      
     }
-    public void Rotate()
+    public void CenterTurret(float angleToRotate)
     {
-        canRotate = true;
+        /*Quaternion currentRotation = transform.rotation; transform.Rotate(0f, , 0f);
+        Debug.Log(time);
+        time += 0.5f;
+        if (time == 5.5f)
+        {
+            transform.eulerAngles = Vector3.zero;
+        }*/
     }
     public void FollowCamera()
     {

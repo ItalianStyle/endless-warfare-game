@@ -16,7 +16,10 @@ public class Hull : Tank
     public float MaxSpeed = 44.08f;
     public float acceleration = 1000f;
     public float m_TurnSpeed = 120f;
-    public float current_speed;
+    public float currentSpeed;
+    public float torque = 120f;
+
+
 
     #endregion
 
@@ -35,7 +38,7 @@ public class Hull : Tank
         // Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
         Vector3 movement = transform.forward * moveRatio * acceleration * Time.deltaTime;
         //Updates speedometer
-        current_speed = rig.velocity.magnitude * 3.6f;
+        currentSpeed = rig.velocity.magnitude * 3.6f;
         // Apply this movement to the rigidbody's position.
         rig.AddForce(movement, ForceMode.Acceleration);
         //Fissa un limite di velocità
@@ -47,11 +50,11 @@ public class Hull : Tank
         // Determine the number of degrees to be turned based on the input, speed and time between frames.
         float turn = turnRatio * m_TurnSpeed * Time.deltaTime;
 
-        // Make this into a rotation in the y axis.
-        Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
+         // Make this into a rotation in the y axis.
+         Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
 
-        // Apply this rotation to the hull rigidbody's rotation.
-        rig.MoveRotation(rig.rotation * turnRotation);
+         // Apply this rotation to the hull rigidbody's rotation.
+         rig.MoveRotation(rig.rotation * turnRotation);       
     }
 
     public void CapSpeed(Rigidbody rigid)
