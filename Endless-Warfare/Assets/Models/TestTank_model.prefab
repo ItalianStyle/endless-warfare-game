@@ -255,6 +255,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5171888863583183115, guid: c486c8e7831613a42af7970b780a114b,
+        type: 3}
+      propertyPath: m_SelectedVertices.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5207473100296152925, guid: c486c8e7831613a42af7970b780a114b,
         type: 3}
       propertyPath: m_Mesh
